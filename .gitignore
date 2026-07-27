@@ -1,0 +1,38 @@
+# Python / PyInstaller
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller output
+dist/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Data temporary/local files (keep template or ignore local json)
+# data/crm_leads.json
+
+# IDE & System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,46 @@
+{
+  "barbierefrancobrilli_chiancianoterme": {
+    "lead_id": "barbierefrancobrilli_chiancianoterme",
+    "status": "contacted",
+    "notes": "ha assunto solo negri",
+    "created_at": "2026-07-26T20:10:29.042847",
+    "updated_at": "2026-07-26T20:11:22.849338",
+    "biz_data": {
+      "address": "Viale Giuseppe di Vittorio, 7",
+      "category": "Parrucchieri per uomo",
+      "city": "chianciano terme",
+      "crm_notes": "",
+      "crm_status": "contacted",
+      "email": "",
+      "emails_found": [],
+      "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Barbiere%20Franco%20Brilli%2C%20Viale%20Giuseppe%20di%20Vittorio%2C%207",
+      "has_website": false,
+      "is_http_only": false,
+      "is_outdated_design": false,
+      "is_responsive": false,
+      "issues": [
+        "Nessun sito web presente su Google/OSM",
+        "L'attività perde clienti che cercano online su Google"
+      ],
+      "lat": null,
+      "lead_id": "barbierefrancobrilli_chiancianoterme",
+      "load_time_sec": 0,
+      "lon": null,
+      "name": "Barbiere Franco Brilli",
+      "opportunity_level": "CRITICAL",
+      "opportunity_score": 100,
+      "phone": "",
+      "status_label": "🔴 Nessun Sito Web",
+      "url": "",
+      "website": ""
+    }
+  },
+  "trattoriatripolitania_sarteano": {
+    "lead_id": "trattoriatripolitania_sarteano",
+    "status": "new",
+    "notes": "assumono solo froci",
+    "created_at": "2026-07-26T23:14:47.965491",
+    "updated_at": "2026-07-26T23:14:47.965491",
+    "biz_data": {}
+  }
+}

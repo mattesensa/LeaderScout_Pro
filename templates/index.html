@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeadScout PRO - Lead Finder & Mini-CRM</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-radar"></i>
+                </div>
+                <div>
+                    <h1>LeadScout <span class="badge-pro">PRO</span></h1>
+                    <p class="subtitle">Ricerca Lead, Audit Web, Social & Pipeline CRM</p>
+                </div>
+            </div>
+
+            <div class="nav-tabs-main">
+                <button id="navSearch" class="nav-btn active"><i class="fa-solid fa-magnifying-glass"></i> Ricerca Lead</button>
+                <button id="navCrm" class="nav-btn"><i class="fa-solid fa-box-archive"></i> I Miei Lead Saved (CRM)</button>
+            </div>
+
+            <div class="header-actions">
+                <button id="btnExportCsv" class="btn btn-secondary" disabled>
+                    <i class="fa-solid fa-file-csv"></i> Esporta CSV
+                </button>
+            </div>
+        </header>
+
+        <!-- VIEW 1: SEARCH VIEW -->
+        <div id="viewSearch">
+            <!-- SEARCH BAR CARD -->
+            <section class="card search-card">
+                <form id="searchForm" class="search-form">
+                    <div class="input-group">
+                        <label for="cityInput"><i class="fa-solid fa-location-dot"></i> Città / Comune</label>
+                        <input type="text" id="cityInput" placeholder="Es. Milano, Bologna, Firenze..." required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="categorySelect"><i class="fa-solid fa-store"></i> Categoria Attività</label>
+                        <select id="categorySelect">
+                            <option value="tutti">Tutte le attività commerciali</option>
+                            <option value="ristoranti">Ristoranti & Pizzerie</option>
+                            <option value="bar">Bar, Caffè & Pub</option>
+                            <option value="parrucchieri">Parrucchieri & Barberie</option>
+                            <option value="estetica">Centri Estetici & SPA</option>
+                            <option value="dentisti">Dentisti & Studi Medici</option>
+                            <option value="abbigliamento">Negozi di Abbigliamento</option>
+                            <option value="artigiani">Idraulici, Elettricisti & Artigiani</option>
+                            <option value="meccanici">Meccanici & Carrozzerie</option>
+                            <option value="hotel">Hotel, B&B & Strutture Ricettive</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="btnSubmitSearch" class="btn btn-primary">
+                        <i class="fa-solid fa-bolt"></i> Cerca Lead
+                    </button>
+                </form>
+            </section>
+
+            <!-- METRICS ROW -->
+            <section id="metricsRow" class="metrics-row hidden">
+                <div class="metric-card">
+                    <div class="metric-icon total"><i class="fa-solid fa-building"></i></div>
+                    <div class="metric-data">
+                        <span id="metricTotal" class="metric-val">0</span>
+                        <span class="metric-lbl">Attività Trovate</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon no-web"><i class="fa-solid fa-globe-slash"></i></div>
+                    <div class="metric-data">
+                        <span id="metricNoWeb" class="metric-val">0</span>
+                        <span class="metric-lbl">Senza Sito (Target #1)</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon outdated"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div class="metric-data">
+                        <span id="metricOutdated" class="metric-val">0</span>
+                        <span class="metric-lbl">Siti Obsoleti / HTTP</span>
+                    </div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon critical"><i class="fa-solid fa-fire"></i></div>
+                    <div class="metric-data">
+                        <span id="metricCritical" class="metric-val">0</span>
+                        <span class="metric-lbl">Alta Opportunità</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LOADER -->
+            <div id="searchLoader" class="loader-container hidden">
+                <div class="spinner"></div>
+                <p id="loaderStatusText">Ricerca e audit in corso...</p>
+            </div>
+
+            <!-- RESULTS SECTION -->
+            <section id="resultsSection" class="card results-card hidden">
+                <div class="results-header">
+                    <div class="filter-pills">
+                        <button class="pill active" data-filter="all">Tutti (<span id="countAll">0</span>)</button>
+                        <button class="pill pill-danger" data-filter="no_website">🔴 Senza Sito (<span id="countNoWeb">0</span>)</button>
+                        <button class="pill pill-warning" data-filter="outdated">🟡 Obsoleti / HTTP (<span id="countOutdated">0</span>)</button>
+                        <button class="pill pill-success" data-filter="modern">🟢 Moderni (<span id="countModern">0</span>)</button>
+                    </div>
+                    <div class="search-table-filter">
+                        <input type="text" id="tableSearch" placeholder="Filtra per nome o via...">
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Attività & Categoria</th>
+                                <th>Contatti & Social</th>
+                                <th>Stato Sito Web</th>
+                                <th>Score Lead</th>
+                                <th>Stato CRM & Note</th>
+                                <th class="text-right">Azioni Rapide</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTableBody">
+                            <!-- Rows generated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW 2: CRM VIEW -->
+        <div id="viewCrm" class="hidden">
+            <section class="card">
+                <div class="results-header">
+                    <h2><i class="fa-solid fa-box-archive"></i> I Miei Lead Salvati (Pipeline CRM)</h2>
+                    <input type="text" id="crmSearch" placeholder="Cerca tra i lead salvati...">
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Attività & Città</th>
+                                <th>Contatti</th>
+                                <th>Stato Trattativa</th>
+                                <th>Note Registrate</th>
+                                <th class="text-right">Azione</th>
+                            </tr>
+                        </thead>
+                        <tbody id="crmTableBody">
+                            <!-- CRM Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- PITCH MODAL -->
+    <div id="pitchModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Pitch Personalizzato per <span id="modalBizName"></span></h3>
+                <button id="btnCloseModal" class="btn-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-tabs">
+                <button class="tab-btn active" data-tab="tab-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                <button class="tab-btn" data-tab="tab-email"><i class="fa-solid fa-envelope"></i> Cold Email</button>
+                <button class="tab-btn" data-tab="tab-phone"><i class="fa-solid fa-phone"></i> Chiamata</button>
+            </div>
+            <div class="modal-body">
+                <div id="tab-wa" class="tab-content active">
+                    <p class="tab-desc">Messaggio diretto pronto da inviare:</p>
+                    <textarea id="textWa" readonly rows="7"></textarea>
+                    <div class="flex-gap">
+                        <button class="btn btn-primary btn-copy" data-target="textWa">
+                            <i class="fa-regular fa-copy"></i> Copia Testo
+                        </button>
+                        <a id="btnWaDirect" href="#" target="_blank" class="btn btn-success">
+                            <i class="fa-brands fa-whatsapp"></i> Apri subito WhatsApp Web
+                        </a>
+                    </div>
+                </div>
+
+                <div id="tab-email" class="tab-content">
+                    <div class="form-group mb-2">
+                        <label>Oggetto Email:</label>
+                        <input type="text" id="textEmailSubject" readonly>
+                    </div>
+                    <p class="tab-desc">Corpo dell'email:</p>
+                    <textarea id="textEmailBody" readonly rows="9"></textarea>
+                    <div class="flex-gap">
+                        <button class="btn btn-primary btn-copy" data-target="textEmailBody">
+                            <i class="fa-regular fa-copy"></i> Copia Corpo Email
+                        </button>
+                        <a id="btnEmailDirect" href="#" class="btn btn-secondary">
+                            <i class="fa-solid fa-paper-plane"></i> Apri Client Email
+                        </a>
+                    </div>
+                </div>
+
+                <div id="tab-phone" class="tab-content">
+                    <p class="tab-desc">Script per chiamata a freddo:</p>
+                    <textarea id="textPhone" readonly rows="9"></textarea>
+                    <button class="btn btn-primary btn-copy" data-target="textPhone">
+                        <i class="fa-regular fa-copy"></i> Copia Script Chiamata
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTES MODAL -->
+    <div id="notesModal" class="modal-overlay hidden">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-pen-to-square"></i> Note Lead: <span id="notesBizName"></span></h3>
+                <button id="btnCloseNotesModal" class="btn-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="notesLeadId">
+                <label class="tab-desc">Annota dettagli trattativa, contatti personali o promemoria:</label>
+                <textarea id="notesInput" rows="6" placeholder="Es. Titolare si chiama Marco. Ha chiesto di inviare l'anteprima lunedì..."></textarea>
+                <button id="btnSaveNotes" class="btn btn-primary btn-full">
+                    <i class="fa-solid fa-floppy-disk"></i> Salva Nota
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
