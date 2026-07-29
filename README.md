@@ -1,74 +1,83 @@
-# Walkthrough & Guida Utente: LeadScout PRO
+# 🚀 LeadScout PRO - Prospezione Commerciale & Audit Siti Web Locali
 
-Abbiamo sviluppato ed eseguito con successo **LeadScout**, un software completo con Dashboard Web per automatizzare la ricerca di clienti locali che non hanno un sito web o che hanno un sito con un **design datato/obsoleto** o senza certificato di sicurezza HTTPS.
-
----
-
-## 🚀 Come Accedere al Programma
-
-Il server locale è **già attivo e funzionante** sul tuo computer al seguente indirizzo:
-
-👉 **[http://127.0.0.1:5000](http://127.0.0.1:5000)**
-
-*(Puoi aprire questo link in qualsiasi browser come Chrome, Edge o Firefox).*
+**LeadScout PRO** è un software completo che automatizza la ricerca di clienti e attività commerciali sul territorio. Analizza la presenza online delle attività (sito web mancante, non sicuro HTTPS, grafica datata o non responsive), genera pitch commerciali personalizzati e permette di gestire i lead tramite un CRM integrato.
 
 ---
 
-## 🔥 Funzionalità Implementate
+## 🌟 Funzionalità Principali
 
-### 1. Motore di Ricerca Ibrido a Copertura Totale (PagineGialle + OpenStreetMap)
-- **Filtro Rigoroso della Città (Anti-Comuni Limitrofi)**: Esclude rigorosamente i risultati appartenenti a paesi o frazioni confinanti (es. *Montepulciano, Cetona, Sarteano*) che le directory inserivano sotto "Nei dintorni". Ora compaiono **solo ed esclusivamente** le attività fisicamente presenti nel comune cercato.
-- **Filtro Rigoroso della Categoria (Zero Falsi Positivi)**: Quando cerchi *"Parrucchieri"*, il sistema convalida ogni singolo risultato verificando la presenza di parole chiave pertinenti. Vengono eliminati del tutto idraulici, elettricisti o altre professioni non correlate.
-- **Recupero di Tutti i Negozi Reali**: Rileva le 11 attività reali e storiche di Chianciano Terme (*Un Diavolo per Capello, Barbiere Franco Brilli, Coiffeur Sandro, Equipe 2000, Fuori di Testa, Punto Donna, Hair Studio, ecc.*).
-- **Link Google Maps diretti ad Alta Precisione**: Genera `https://www.google.com/maps/search/?api=1&query=[Nome] + [Indirizzo Via] + [Città]` per aprire al primo click la scheda esatta dell'attività su Google Maps.
-
-### 2. Mini-CRM & Pipeline di Vendita Integrata (Salvataggio Persistente)
-- **Gestione Stato Trattativa per Ogni Lead**: Per ciascuna attività puoi impostare e cambiare in tempo reale lo stato della trattativa:
-  - 🔴 *Da Contattare*
-  - 🟡 *Messaggio Inviato*
-  - 🔵 *In Trattativa / Appuntamento*
-  - 🟢 *Cliente Acquisito!*
-  - ❌ *Non Interessato*
-- **Registro Note Personali (Promemoria)**: Cliccando sull'icona 📝 puoi inserire e salvare note sul cliente (*es. "Titolare si chiama Elena, richiamare giovedì"*). Le note e gli stati vengono **salvati in automatico** sul tuo computer nel file `data/crm_leads.json`.
-- **Scheda "I Miei Lead Saved (CRM)"**: Un nuovo tab dedicato in alto ti permette di consultare in qualsiasi momento tutti i clienti salvati e lo stato della tua pipeline di vendita.
-
-### 3. Rilevamento Canali Social (Instagram & Facebook)
-- **Scansione Profili Social**: Durante l'audit, il programma individua i link ufficiali ai profili **Instagram** e **Facebook** dell'attività.
-- **Identificazione Target d'Oro**: Trovare un'attività con Instagram/Facebook attivi ma **senza sito web** segnala un cliente ideale, che già investe nella comunicazione e ha budget disponibile.
-
-### 4. Invio Diretto a 1-Click su WhatsApp Web ed Email
-- Nel modale di Pitch, cliccando su **"💬 Apri subito WhatsApp Web"**, il browser apre immediatamente la chat di WhatsApp Web con il messaggio personalizzato già pre-compilato.
-- Cliccando su **"✉️ Apri Client Email"**, viene aperto il tuo programma di posta con l'oggetto e il corpo dell'email già pronti per l'invio.
-
-### 3. Generatore di Pitch Personalizzato (1-Click Copy)
-Cliccando sul pulsante **⚡ Pitch** accanto a qualsiasi attività, LeadScout analizza i problemi specifici di quel negozio e genera all'istante:
-- **WhatsApp Pitch**: Messaggio informale e diretto pronto per l'invio rapido da smartphone.
-- **Cold Email Pitch**: Email strutturata con l'indicazione precisa delle criticità rilevate nel loro sito.
-- **Script Telefonico**: Guida passo-passo da seguire per una chiamata a freddo ad alta conversione.
-
-### 4. Esportazione dei Lead in CSV
-- È possibile esportare tutti i risultati trovati (con telefoni, email, siti web, punteggi e problemi rilevati) in un file **CSV compatibile con Excel**.
+- 🔍 **Ricerca Territoriale Ibrida**: Trova le attività commerciali in qualsiasi città o comune con filtri rigorosi per evitare risultati nei comuni limitrofi.
+- ⚡ **Audit Automatico Siti Web**:
+  - Verifica la presenza del sito web.
+  - Controlla la sicurezza (HTTPS vs HTTP).
+  - Analizza il design responsive per dispositivi mobili.
+  - Identifica siti datati/inattivi e trova automaticamente le email di contatto.
+- 🎯 **Opportunity Score**: Calcola un punteggio da 0 a 100 per identificare i clienti con il più alto potenziale di vendita.
+- 📝 **Pitch Generator**: Genera automaticamente bozze di email o messaggi commerciali su misura per l'attività selezionata.
+- 📊 **CRM Integrato**: Salva e aggiorna lo stato dei lead (*Nuovo*, *Contattato*, *In Trattativa*, *Cliente*, *Non Interessato*) con note personalizzate.
 
 ---
 
-## 🛠️ Come Avviare LeadScout in Futuro
+## 💻 Come Usare l'Applicazione
 
-Se in futuro riavvii il computer, ti basterà aprire il terminale nella cartella `muccia` ed eseguire:
+Puoi utilizzare **LeadScout PRO** su **Windows** e su **macOS** scegliendo la modalità più adatta a te:
 
+### 🍏 Su macOS (Apple Mac)
+
+#### Opzione 1: Avvio Rapido (con Python) — *Consigliata*
+1. Scarica o clona questo repository su Mac.
+2. Fai **doppio clic** sul file `start_mac.command`.
+3. Il programma verificherà le dipendenze e aprirà automaticamente il browser su `http://127.0.0.1:5000`.
+
+> **Nota per macOS**: La prima volta che apri `start_mac.command`, fai **Tasto Destro** (o `Ctrl` + Clic) sul file e seleziona **Apri** per autorizzare l'esecuzione da parte di macOS.
+
+#### Opzione 2: Eseguibile Standalone Mac (Senza Python)
+1. Vai nella sezione **Actions** del repository GitHub.
+2. Scarica il file `LeadScoutPRO-macOS.zip` dagli **Artifacts**.
+3. Estrarre il file ZIP e fare doppio clic sull'applicazione.
+
+---
+
+### 🪟 Su Windows
+
+#### Opzione 1: Eseguibile Standalone `.exe`
+1. Scarica o estrai il pacchetto `dist/LeadScoutPRO_Windows.zip` (o scaricalo dagli **Artifacts** di GitHub Actions).
+2. Fa doppio clic su **`LeadScoutPRO.exe`**.
+3. Si aprirà la console di supporto e il tuo browser predefinito si aprirà automaticamente su `http://127.0.0.1:5000`.
+
+#### Opzione 2: Da Terminale (Python)
+1. Apri il prompt dei comandi nella cartella del progetto.
+2. Esegui:
+   ```bash
+   pip install -r requirements.txt
+   python desktop_launcher.py
+   ```
+
+---
+
+## 🛠️ Per gli Sviluppatori: Compilazione Eseguibili
+
+Per generare i pacchetti eseguibili standalone per Windows e Mac:
+
+### Compilazione Locale (Windows)
 ```bash
-python app.py
+python build_executable.py
 ```
+Il pacchetto `.zip` finale verrà creato in `dist/LeadScoutPRO_Windows.zip`.
 
-E poi aprire nel browser l'indirizzo `http://127.0.0.1:5000`.
+### Compilazione Automatica Cross-Platform (GitHub Actions)
+Il repository include il workflow `.github/workflows/build_executables.yml`.
+Ogni volta che fai un `push` o avvii manualmente il workflow da GitHub Actions, i server di GitHub compileranno automaticamente gli eseguibili sia per **Windows** che per **macOS**.
 
 ---
 
-## 📁 File del Progetto Creati
+## 📁 Struttura del Progetto
 
-- [app.py](file:///c:/Users/admloc/Desktop/muccia/app.py) (Server Flask e Gestione API)
-- [overpass_client.py](file:///c:/Users/admloc/Desktop/muccia/overpass_client.py) (Estrattore OpenStreetMap)
-- [web_auditor.py](file:///c:/Users/admloc/Desktop/muccia/web_auditor.py) (Scanners ed Audit del design obsoleto)
-- [pitch_generator.py](file:///c:/Users/admloc/Desktop/muccia/pitch_generator.py) (Generatore di messaggi di vendita)
-- [templates/index.html](file:///c:/Users/admloc/Desktop/muccia/templates/index.html) (Interfaccia Dashboard Web)
-- [static/css/style.css](file:///c:/Users/admloc/Desktop/muccia/static/css/style.css) (Design Dark Mode & Glassmorphism)
-- [static/js/main.js](file:///c:/Users/admloc/Desktop/muccia/static/js/main.js) (Logica frontend e chiamate AJAX)
+- `app.py`: Server Flask e API principali.
+- `desktop_launcher.py`: Launcher desktop con apertura automatica del browser.
+- `start_mac.command`: Script 1-click di avvio rapido per utenti macOS.
+- `web_auditor.py`: Motore di scansione e analisi siti web.
+- `overpass_client.py`: Integrazione OpenStreetMap e directory per la prospezione.
+- `crm_store.py`: Gestore del database CRM locale (`data/crm_leads.json`).
+- `pitch_generator.py`: Generatore di proposte commerciali.
+- `build_executable.py`: Builder PyInstaller.
