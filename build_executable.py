@@ -39,12 +39,21 @@ def run():
         print("\n[SUCCESS] Compilazione completata con successo!")
         print(f"[+] L'eseguibile si trova in: {os.path.abspath('dist')}")
         
-        # Package ZIP
+        # Package ZIP (creato all'esterno di dist per evitare la ricorsione infinita)
         dist_dir = os.path.abspath("dist")
         system_name = "Windows" if sys.platform == "win32" else ("macOS" if sys.platform == "darwin" else "Linux")
         zip_name = f"LeadScoutPRO_{system_name}"
-        zip_path = shutil.make_archive(os.path.join(dist_dir, zip_name), 'zip', dist_dir)
-        print(f"[+] Pacchetto ZIP creato: {zip_path}")
+        temp_zip_base = os.path.abspath(zip_name)
+        
+        if os.path.exists(f"{temp_zip_base}.zip"):
+            os.remove(f"{temp_zip_base}.zip")
+
+        created_zip = shutil.make_archive(temp_zip_base, 'zip', dist_dir)
+        
+        # Sposta lo ZIP dentro dist solo a creazione ultimata
+        final_zip_path = os.path.join(dist_dir, f"{zip_name}.zip")
+        shutil.move(created_zip, final_zip_path)
+        print(f"[+] Pacchetto ZIP creato: {final_zip_path}")
     else:
         print("\n[ERROR] Errore durante la compilazione.")
 
